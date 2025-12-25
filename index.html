@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مراجعة عامة للصف 3م ف1 اللغة العربية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-start: #0f766e;
+            --primary-end: #14b8a6;
+            --card-bg: #ffffff;
+            --correct-color: #059669;
+            --incorrect-color: #dc2626;
+            --text-main: #1e293b;
+            --bg-gradient: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 100px;
+            color: var(--text-main);
+        }
+
+        /* تنسيقات الرأس والشعار */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .header img {
+            width: 100px; /* حجم الشعار */
+            height: auto;
+            margin-bottom: 5px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: #0f766e;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .school-name {
+            font-size: 1.2rem;
+            color: #334155;
+            font-weight: 700;
+            margin-top: 5px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 10px;
+            width: 80%;
+        }
+
+        /* Mode Selection */
+        .mode-selection {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 5px;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--primary-start);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.4);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            background: var(--primary-start);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .btn-reset {
+            background: #94a3b8;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 800px;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: #f0fdfa;
+            color: var(--primary-start);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #ccfbf1;
+        }
+
+        /* Context Box (The Piece/Poem) */
+        .context-box {
+            background: #f8fafc;
+            border-right: 4px solid var(--primary-start);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #334155;
+            white-space: pre-line;
+            font-weight: 600;
+        }
+
+        .sub-question {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #e2e8f0;
+        }
+        
+        .sub-question:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* عمودين */
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Tajawal', sans-serif;
+            text-align: center;
+            transition: all 0.2s;
+            color: #64748b;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 55px;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary-start);
+            background: #f0fdfa;
+        }
+
+        .option-btn.selected {
+            background: var(--primary-start);
+            color: white;
+            border-color: var(--primary-start);
+        }
+
+        .option-btn.correct-ans {
+            background: var(--correct-color) !important;
+            color: white !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .option-btn.wrong-ans {
+            background: var(--incorrect-color) !important;
+            color: white !important;
+            border-color: var(--incorrect-color) !important;
+        }
+
+        .feedback-msg {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            display: none;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        /* Result Popup */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .stats-popup {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            width: 90%;
+            max-width: 450px;
+        }
+
+        .score-circle {
+            width: 140px; height: 140px;
+            background: var(--primary-start);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            border: 6px solid #ccfbf1;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.5rem; }
+            .card { padding: 15px; }
+            .options-grid { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://z-cdn-media.chatglm.cn/files/18831501-6f8f-4284-a7e3-2b5f219a8b9d_%D8%B4%D8%B9%D8%A7%D8%B1%20%D8%A7%D9%84%D9%88%D8%B2%D8%A7%D8%B1%D9%87.png?auth_key=1791122829-70983e0b353145a3b804341b229af8a4-0-fcc7a582b834bd1790247c1399ff1a0e" alt="شعار الوزارة">
+        <h1>مراجعة عامة للصف 3م ف1 اللغة العربية</h1>
+        <p class="school-name">المدرسة المتوسطة الرابعة بالهفوف</p>
+    </div>
+
+    <div class="mode-selection">
+        <button class="mode-btn active" id="btn-exam" onclick="setMode('exam')">📝 وضع الاختبار</button>
+        <button class="mode-btn" id="btn-practice" onclick="setMode('practice')">🏋️ وضع التدريب</button>
+    </div>
+
+    <div class="cards-container" id="cardsContainer">
+        <!-- Cards injected via JS -->
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-reset" onclick="initQuiz()">🔄 إعادة</button>
+        <button class="btn" id="finishBtn" onclick="finishQuiz()">✅ إنهاء وتصحيح</button>
+    </div>
+
+    <!-- Result Popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="stats-popup" id="resultPopup">
+        <div class="score-circle" id="scoreCircle">0%</div>
+        <h2 style="color:var(--text-main); margin-bottom:10px;">النتيجة النهائية</h2>
+        <p id="scoreDetails" style="color:#64748b; margin-bottom:20px;"></p>
+        <button class="btn" onclick="closePopup()">إغلاق</button>
+    </div>
+
+    <script>
+        // ================= SMART DATA STRUCTURE =================
+        const quizData = [
+            // --- السؤال الأول (أ) - مستقلة ---
+            {
+                section: "الأساليب اللغوية",
+                type: "single",
+                questions: [
+                    { q: "نوع الأسلوب في: (تالله لم يتيسر هذا إلا بالعلم):", options: ["قسم", "شرط", "تفضيل", "حال"], a: "قسم" },
+                    { q: "نوع الأسلوب في: (مكة فضلى المدن):", options: ["تفضيل", "قسم", "شرط", "حال"], a: "تفضيل" }
+                ]
+            },
+            
+            // --- السؤال الأول (ب) - مستقلة ---
+            {
+                section: "الإعراب",
+                type: "single",
+                questions: [
+                    { q: "إعراب (مشجعين) في: يقف قادة الوطن مشجعين:", options: ["حال منصوبة بالياء", "مفعول به منصوب", "تمييز منصوب", "فاعل مرفوع"], a: "حال منصوبة بالياء" },
+                    { q: "إعراب (حبا) في: هفت القلوب إلى الملك سلمان حبا:", options: ["تمييز منصوب بالفتحة", "حال منصوبة", "مفعول لأجله", "اسم مجرور"], a: "تمييز منصوب بالفتحة" }
+                ]
+            },
+
+            // --- السؤال الأول (ج-1) - نص شعري 1 ---
+            {
+                section: "النصوص الشعرية (1)",
+                type: "group",
+                context: "فإن يأكلوا لحمي وفرت لحومهم ... وإن يهدموا مجدي بنيت لهم مجدا\nوإن ضيعوا غيبي حفظت غيوبهم ... وإن هووا غيي هويت لهم رشدا",
+                questions: [
+                    { q: "في البيت الأول شبه الشاعر أبناء عمه بـ:", options: ["الوحوش المفترسة", "الحيوانات الأليفة", "الحمام", "الجمل"], a: "الوحوش المفترسة" },
+                    { q: "في البيت الثاني ضد كلمة ( تضييع ):", options: ["حفظ", "هلاك", "رشد", "غيب"], a: "حفظ" }
+                ]
+            },
+
+            // --- السؤال الأول (ج-2) - نص شعري 2 ---
+            {
+                section: "النصوص الشعرية (2)",
+                type: "group",
+                context: "وندى يجوز الغاديات نواله ... فتراه يغدق ما ينال ويأرب\nحتى ابتسامته التي عرفت به ... تهب الكبير وقاره وتحبب",
+                questions: [
+                    { q: "في البيت الأول شبه الشاعر عبد الرحمن السعدي بـ:", options: ["السحابة", "الزرع", "القمر", "الجبل"], a: "السحابة" },
+                    { q: "في البيت الثاني ضد كلمة ( تهب ):", options: ["تسلب", "تعطي", "تسرع", "تقرأ"], a: "تسلب" }
+                ]
+            },
+
+            // --- السؤال الثاني: إملاء ومشتقات ونحو ---
+            {
+                section: "الإملاء: الألف اللينة",
+                type: "single",
+                questions: [
+                    { q: "تكتب الألف اللينة في الفعل دعـ...", options: ["ا", "ى", "ــا", "ــى"], a: "ا" },
+                    { q: "تكتب الألف اللينة في الفعل ( قض....) .", options: ["ى", "ا", "و", "ي"], a: "ى" },
+                    { q: "تكتب الألف اللينة في الفعل (استحي ....)", options: ["ا", "ى", "ب", "ج"], a: "ا" },
+                    { q: "تكتب الألف اللينة في الفعل ( استول .... ) .", options: ["ى", "ا", "و", "ــا"], a: "ى" }
+                ]
+            },
+            {
+                section: "المشتقات والأوزان",
+                type: "single",
+                questions: [
+                    { q: "لا مكان لمغرض (حقود). ما تحته خط:", options: ["صيغة مبالغة", "اسم فاعل", "اسم مفعول", "اسم آلة"], a: "صيغة مبالغة" },
+                    { q: "إن تكونوا (صالحين). نوع المشتق:", options: ["اسم فاعل", "اسم مفعول", "صيغة مبالغة", "اسم تفضيل"], a: "اسم فاعل" },
+                    { q: "لو تعلمون ( لقائل ) فعال. الكلمة على وزن:", options: ["فاعل", "مفعول", "أفعل", "مفعال"], a: "فاعل" },
+                    { q: "العلم ( معروف ) الكلمة على وزن:", options: ["مفعول", "فاعل", "أفعل", "مفعال"], a: "مفعول" },
+                    { q: "كل مواطن ( عليم) بدوره. الكلمة على وزن:", options: ["فعيل", "فاعل", "مفعول", "مفعال"], a: "فعيل" },
+                    { q: "اسم الفاعل من الفعل ( نجح ):", options: ["ناجح", "منجوح", "أنجح", "نجيح"], a: "ناجح" },
+                    { q: "اسم المفعول من الفعل ( سمح ):", options: ["مسموح", "سامح", "سميح", "أسمح"], a: "مسموح" }
+                ]
+            },
+            {
+                section: "النحو (التمييز والاستثناء والحال)",
+                type: "single",
+                questions: [
+                    { q: "تصدق الغني بصاع (قمحا). نوع التمييز:", options: ["مفرد", "جملة", "قياسي", "سماعي"], a: "مفرد" },
+                    { q: "حضر الطلاب إلا أخاك. نوع الاستثناء:", options: ["تام مثبت", "تام منفي", "ناقص منفي", "مفرغ"], a: "تام مثبت" },
+                    { q: "النور وهو (منبعث) بقوة. نوع الحال:", options: ["جملة اسمية", "مفرد", "جملة فعلية", "شبه جملة"], a: "جملة اسمية" },
+                    { q: "( وجاءوا أباهم عشاء يبكون ) نوع الحال:", options: ["جملة فعلية", "مفرد", "جملة اسمية", "شبه جملة"], a: "جملة فعلية" },
+                    { q: "( اشتريت مترا قماشا ) نوع المميز:", options: ["ملفوظ", "ملحوظ", "قياسي", "سماعي"], a: "ملفوظ" },
+                    { q: "( ختمت بنت الشاطئ القرآن حفظا ) نوع المميز:", options: ["ملحوظ", "ملفوظ", "قياسي", "سماعي"], a: "ملحوظ" },
+                    { q: "( لم يحفظ الطلاب القصيدة إلا خالدًا ) حكم النصب:", options: ["جائز", "واجب", "ممتنع", "حسب موقعه"], a: "جائز" },
+                    { q: "يجحد الناس النعمة إلا (المؤمن). العلامة الإعرابية:", options: ["الفتحة", "الضمة", "الكسرة", "السكون"], a: "الفتحة" },
+                    { q: "ارتفع العالم (قدرا). العلامة الإعرابية:", options: ["الفتحة", "الضمة", "الكسرة", "السكون"], a: "الفتحة" },
+                    { q: "يقف قادة الوطن (مشجعين). العلامة الإعرابية:", options: ["الياء", "الفتحة", "الكسرة", "الضمة"], a: "الياء" }
+                ]
+            },
+            {
+                section: "صح أم خطأ",
+                type: "single",
+                questions: [
+                    { q: "( يمين الله لأعطين الطريق حقه ) من صيغ القسم", options: ["صح", "خطأ"], a: "صح" },
+                    { q: "( ما تزرعه اليوم تحصده غدا ) أسلوب شرط", options: ["صح", "خطأ"], a: "صح" },
+                    { q: "( الرياض كبرى المدن ) أسلوب تفضيل", options: ["صح", "خطأ"], a: "صح" },
+                    { q: "تعد (لو) من أدوات الشرط التي تفيد الزمان", options: ["خطأ", "صح"], a: "خطأ" },
+                    { q: "يصاغ اسم التفضيل من الفعل الثلاثي المثبت المبني للمعلوم", options: ["صح", "خطأ"], a: "صح" },
+                    { q: "من قواعد خط الرقعة كتابة الحروف ( هـ ) تحت السطر", options: ["خطأ", "صح"], a: "خطأ" },
+                    { q: "( بيت الله أقدس البيوت ) ما تحته خط المفضل", options: ["صح", "خطأ"], a: "صح" },
+                    { q: "إذا دخل حرف الجر (من) على ( مَن ) تكتب ( ممن )", options: ["صح", "خطأ"], a: "صح" },
+                    { q: "الفعل المنتهي بألف لينة أصلها واو يكتب بألف مقصورة", options: ["خطأ", "صح"], a: "خطأ" },
+                    { q: "( يلعب الأطفال وهم مسرورين ) الواو هي واو العطف", options: ["خطأ", "صح"], a: "خطأ" }
+                ]
+            },
+
+            // --- السؤال الرابع - قطعة فهم واستيعاب ---
+            {
+                section: "الفهم والاستيعاب",
+                type: "group",
+                context: "إن الواجب على كل مواطن شريف خاصة الشباب أن يحذر من الشائعات المغرضة ، لئلا يكون معول هدم لأمته وسبب في تفرق كلمتها ، وقد نهى الرسول عليه الصلاة والسلام عن قيل وقال وكثرة السؤال وإضاعة المال .",
+                questions: [
+                    { q: "ما الواجب على كل مواطن شريف؟", options: ["الحذر من الشائعات", "نشر الأخبار", "تجاهل كل شيء", "كثرة الحديث"], a: "الحذر من الشائعات" },
+                    { q: "عللي وجوب الحذر من الشائعات:", options: ["لئلا يكون معول هدم لأمته", "لأنها مضيعة للوقت", "لزيادة المعلومات", "للتسلية"], a: "لئلا يكون معول هدم لأمته" },
+                    { q: "عددي الأمور التي نهى عنها الرسول في القطعة:", options: ["قيل وقال وكثرة السؤال", "النوم المتأخر", "الإسراف في الطعام", "الضحك الكثير"], a: "قيل وقال وكثرة السؤال" },
+                    { q: "الفكرة المناسبة للنص السابق:", options: ["واجب المواطن تجاه وطنه", "أهمية المال", "آداب الحديث", "مخاطر الطريق"], a: "واجب المواطن تجاه وطنه" }
+                ]
+            }
+        ];
+
+        let currentMode = 'exam';
+        let userAnswers = {}; // { 'groupIndex-questionIndex': 'value' }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('btn-exam').classList.toggle('active', mode === 'exam');
+            document.getElementById('btn-practice').classList.toggle('active', mode === 'practice');
+            document.getElementById('finishBtn').style.display = mode === 'practice' ? 'none' : 'block';
+            initQuiz();
+        }
+
+        // Fisher-Yates Shuffle Function
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function initQuiz() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+            userAnswers = {};
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('resultPopup').style.display = 'none';
+
+            quizData.forEach((block, groupIdx) => {
+                
+                if (block.type === 'group') {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <div class="section-badge">${block.section}</div>
+                        <div class="context-box">${block.context}</div>
+                    `;
+
+                    block.questions.forEach((q, qIdx) => {
+                        const qId = `${groupIdx}-${qIdx}`;
+                        
+                        // Copy options and shuffle them
+                        const shuffledOptions = shuffleArray([...q.options]);
+
+                        const btnsHtml = shuffledOptions.map(opt => 
+                            `<button class="option-btn" onclick="selectAnswer('${qId}', '${opt}', '${q.a}', this)">${opt}</button>`
+                        ).join('');
+
+                        card.innerHTML += `
+                            <div class="sub-question" id="subq-${qId}">
+                                <div class="question-text">${qIdx + 1}. ${q.q}</div>
+                                <div class="options-grid" id="opts-${qId}">
+                                    ${btnsHtml}
+                                </div>
+                                <div class="feedback-msg" id="feedback-${qId}"></div>
+                            </div>
+                        `;
+                    });
+                    container.appendChild(card);
+
+                } else {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<div class="section-badge">${block.section}</div>`;
+                    
+                    block.questions.forEach((q, qIdx) => {
+                        const qId = `${groupIdx}-${qIdx}`;
+
+                        // Copy options and shuffle them
+                        const shuffledOptions = shuffleArray([...q.options]);
+
+                        const btnsHtml = shuffledOptions.map(opt => 
+                            `<button class="option-btn" onclick="selectAnswer('${qId}', '${opt}', '${q.a}', this)">${opt}</button>`
+                        ).join('');
+
+                        card.innerHTML += `
+                            <div class="sub-question" id="subq-${qId}">
+                                <div class="question-text">${qIdx + 1}. ${q.q}</div>
+                                <div class="options-grid" id="opts-${qId}">
+                                    ${btnsHtml}
+                                </div>
+                                <div class="feedback-msg" id="feedback-${qId}"></div>
+                            </div>
+                        `;
+                    });
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        function selectAnswer(qId, value, correctVal, btnElement) {
+            const feedbackEl = document.getElementById(`feedback-${qId}`);
+            const parent = document.getElementById(`opts-${qId}`);
+
+            Array.from(parent.children).forEach(b => {
+                b.classList.remove('selected');
+                if (currentMode === 'exam') {
+                    b.classList.remove('correct-ans', 'wrong-ans'); 
+                }
+            });
+
+            btnElement.classList.add('selected');
+            userAnswers[qId] = value;
+
+            if (currentMode === 'practice') {
+                if (value === correctVal) {
+                    btnElement.classList.add('correct-ans');
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.style.backgroundColor = '#d1fae5';
+                    feedbackEl.style.color = 'var(--correct-color)';
+                    feedbackEl.innerText = '✅ إجابة صحيحة';
+                } else {
+                    btnElement.classList.add('wrong-ans');
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.style.backgroundColor = '#fee2e2';
+                    feedbackEl.style.color = 'var(--incorrect-color)';
+                    feedbackEl.innerText = '❌ إجابة خاطئة';
+                }
+            } else {
+                feedbackEl.style.display = 'none';
+            }
+        }
+
+        function finishQuiz() {
+            let score = 0;
+            let totalQuestions = 0;
+
+            quizData.forEach((block, groupIdx) => {
+                block.questions.forEach((q, qIdx) => {
+                    totalQuestions++;
+                    const qId = `${groupIdx}-${qIdx}`;
+                    const feedbackEl = document.getElementById(`feedback-${qId}`);
+                    const userChoice = userAnswers[qId];
+                    const parent = document.getElementById(`opts-${qId}`);
+
+                    Array.from(parent.children).forEach(btn => {
+                        if (btn.innerText === q.a) {
+                            btn.classList.add('correct-ans');
+                        } else if (btn.innerText === userChoice && userChoice !== q.a) {
+                            btn.classList.add('wrong-ans');
+                        }
+                    });
+
+                    if (userChoice === q.a) {
+                        score++;
+                        feedbackEl.style.color = 'var(--correct-color)';
+                        feedbackEl.innerText = '✅ إجابة صحيحة';
+                        feedbackEl.style.backgroundColor = '#d1fae5';
+                    } else {
+                        feedbackEl.style.color = 'var(--incorrect-color)';
+                        feedbackEl.innerText = userChoice ? `❌ إجابتك: ${userChoice}` : '❌ لم يتم الحل';
+                        feedbackEl.style.backgroundColor = '#fee2e2';
+                    }
+                    feedbackEl.style.display = 'block';
+                });
+            });
+
+            const percent = Math.round((score / totalQuestions) * 100);
+            document.getElementById('scoreCircle').innerText = `${percent}%`;
+            document.getElementById('scoreDetails').innerText = `أجبت على ${score} من أصل ${totalQuestions} سؤال بشكل صحيح.`;
+            
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('resultPopup').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('resultPopup').style.display = 'none';
+        }
+
+        initQuiz();
+
+    </script>
+</body>
+</html>
